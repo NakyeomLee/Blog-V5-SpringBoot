@@ -26,11 +26,13 @@ public class BoardRepository {
         // 동기화 완료 (영속화됨)
     }
 
+    // 홈 버튼 눌렀을 때 => 글 목록 보이는 화면
     public List<Board> findAll(){
         return em.createQuery("select b from Board b order by b.id desc", Board.class)
                 .getResultList();
     }
 
+    // Optional로 null 처리
     public Optional<Board> findById(int id) {
         return Optional.ofNullable(em.find(Board.class, id));
     }

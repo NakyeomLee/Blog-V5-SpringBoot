@@ -19,9 +19,10 @@ public class Board {
     private String content;
 
     // 하이버네이트 문법 규칙
-    // 이렇게 연관 관계 설정해놓은 User 객체 자체를 들고오는 것이 아니라
-    // User 테이블의 PK (user_id(필드로는 userId))를 들고옴
-    @ManyToOne // 연관 관계 설정 (User 쪽이 1이니까 ManyToOne)
+    // 연관 관계 설정해놓은 User 객체(user_tb 테이블) 자체를 들고오는 것이 아니라
+    // user_tb 테이블의 PK (user_id(필드로는 userId))를 들고옴
+    // 연관 관계 설정 (User 쪽이 1이니까 ManyToOne)
+    @ManyToOne(fetch = FetchType.LAZY) // LAZY와 EAGER일때 콘솔 출력되는 쿼리 다름
     private User user;
 
     @CreationTimestamp
