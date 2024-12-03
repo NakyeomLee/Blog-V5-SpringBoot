@@ -1,6 +1,7 @@
 package com.example.blog.board;
 
-import com.example.blog._core.util.MyDate;
+import com.example.blog._core.util.Encoding;
+import com.example.blog.user.User;
 import lombok.Data;
 
 public class BoardResponse {
@@ -16,7 +17,7 @@ public class BoardResponse {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
-            this.createdAt = MyDate.formatToStr(board.getCreatedAt());
+            this.createdAt = Encoding.formatToStr(board);
         }
     }
 
@@ -30,14 +31,19 @@ public class BoardResponse {
 
         private Integer userId;
         private String username;
+        boolean isOwner = false;
 
-        public DetailDTO(Board board) {
+        public DetailDTO(Board board, User sessionUser) {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
-            this.createdAt = MyDate.formatToStr(board.getCreatedAt());
+            this.createdAt = Encoding.formatToStr(board);
+
             this.userId = board.getUser().getId();
-            this.username = board.getUser().getUsername();
+            this.username = board.getUser().getUsername(); // lazy loading
+            if(sessionUser != null) {
+                this.isOwner = sessionUser.getId() == board.getUser().getId();
+            }
         }
     }
 

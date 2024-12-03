@@ -1,6 +1,7 @@
 package com.example.blog.board;
 
 import com.example.blog._core.error.ex.Exception404;
+import com.example.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,17 +21,11 @@ public class BoardService {
                 .toList();
     }
 
-    public BoardResponse.UpdateFormDTO 게시글수정화면보기(int id) {
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : "+id));
-
-        return new BoardResponse.UpdateFormDTO(board);
-    }
-
-    public BoardResponse.DetailDTO 게시글상세보기(int id) {
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : "+id));
-        return new BoardResponse.DetailDTO(board);
+    // 1202 Join > service 메서드 이름 변경
+    public BoardResponse.DetailDTO 게시글상세보기(int id, User sessionUser) {
+        Board board = boardRepository.findByIdJoinUser(id)
+                .orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : " + id));
+        return new BoardResponse.DetailDTO(board, sessionUser);
     }
 
     @Transactional
@@ -42,6 +37,13 @@ public class BoardService {
     public void 게시글삭제(int id) {
         boardRepository.delete(id);
     } // commit or rollback 이 됨.
+
+    public BoardResponse.UpdateFormDTO 게시글수정화면보기(int id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : "+id));
+
+        return new BoardResponse.UpdateFormDTO(board);
+    }
 
     @Transactional
     public void 게시글수정하기(int id, BoardRequest.UpdateDTO updateDTO) {

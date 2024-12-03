@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.sql.Timestamp;
 
 // Builder 문법
-// @Builder는 @AllArgsConstructor(디폴트 생성자)가 있어야 사용 가능
+// @Builder는 @AllArgsConstructor가 있어야 사용 가능
 // 컬렉션은 빌더 생성 불가 => 포함돼있으면 빌더에서 제외
 // 풀 생성자 생성해놓고 @Builder 달아서 빌더 만듦 => 풀생성자 어노테이션 지우기
 

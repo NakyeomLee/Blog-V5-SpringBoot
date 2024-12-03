@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Import;
 import java.util.List;
 import java.util.Optional;
 
-@Import(BoardRepository.class)
-@DataJpaTest // DB 관련된 자원들을 메모리(IoC)에 올린다.
+@Import(BoardRepository.class) // BoardRepository 클래스를 사용
+@DataJpaTest // DB 관련된 자원들을 메모리(IoC)에 올림(JPA 관련 컴포넌트만 초기화)
 public class BoardRepositoryTest {
 
     @Autowired

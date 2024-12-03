@@ -1,12 +1,13 @@
 package com.example.blog._core.util;
 
+import com.example.blog.board.Board;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class MyDate {
+public class Encoding {
 
-    public static String formatToStr(Timestamp createdAt){
+    public static String formatToStr(Board board){
         // when
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         String formattedDate = sdf.format(createdAt);
