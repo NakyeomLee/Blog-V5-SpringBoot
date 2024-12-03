@@ -25,10 +25,10 @@ public class Reply {
     private Timestamp createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY) // 유저1 : 댓글n
-    private User user;
+    private User user; // 댓글을 쓴 유저
 
     @ManyToOne(fetch = FetchType.LAZY) // 보드1 : 댓글n
-    private Board board;
+    private Board board; // 댓글이 달린 게시물
 
     @Builder
     public Reply(Integer id, String comment, Timestamp createdAt, User user, Board board) {

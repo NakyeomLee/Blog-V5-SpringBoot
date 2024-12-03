@@ -23,7 +23,7 @@ public class BoardService {
 
     // 1202 Join > service 메서드 이름 변경
     public BoardResponse.DetailDTO 게시글상세보기(int id, User sessionUser) {
-        Board board = boardRepository.findByIdJoinUser(id)
+        Board board = boardRepository.findByIdJoinUserAndReply(id)
                 .orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : " + id));
         return new BoardResponse.DetailDTO(board, sessionUser);
     }

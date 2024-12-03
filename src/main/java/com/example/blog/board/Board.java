@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 외부에서 빈 생성자 생성하지 못하게 제한(protected)
@@ -29,8 +30,9 @@ public class Board {
     private User user;
 
     // 241203 추가
-    @OneToMany(mappedBy = "board") // fk의 변수명이 뭐야?
-    private List<Reply> replies;
+    // mappedBy : fk의 변수명이 뭐야?
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    private List<Reply> replies = new ArrayList<>(); // 댓글들을 List로 만듦
 
     @CreationTimestamp
     private Timestamp createdAt;

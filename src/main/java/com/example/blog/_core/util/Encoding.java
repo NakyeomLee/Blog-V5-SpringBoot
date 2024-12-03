@@ -10,7 +10,7 @@ public class Encoding {
     public static String formatToStr(Board board){
         // when
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-        String formattedDate = sdf.format(createdAt);
+        String formattedDate = sdf.format(board.getCreatedAt());
         return formattedDate;
     }
 }

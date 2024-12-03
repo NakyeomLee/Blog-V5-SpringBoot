@@ -14,6 +14,25 @@ public class BoardRepository {
 
     private final EntityManager em;
 
+    // 241203
+    public Optional<Board> findByIdJoinUserAndReply(int id) {
+        // 조인 결과가 하나의 테이블 / JPQL쿼리 사용
+        // fetch가 빠지면 user테이블이 null이라 콘솔 안나옴
+        String sql = """ 
+                select b from Board b join fetch b.user left join fetch b.replies r left join fetch r.user where b.id = :id
+                """;
+        Query q = em.createQuery(sql, Board.class);
+        q.setParameter("id", id);
+
+        try { // 해당 try문은 이상한 구조로 실제 적용X. 참고만 하기
+            Board board = (Board) q.getSingleResult();
+            return Optional.ofNullable(board);
+
+        } catch (RuntimeException e) {
+            return Optional.ofNullable(null);
+        }
+    }
+
     // 1202 Join > service 메서드 교체
     public Optional<Board> findByIdJoinUser(int id) {
         // 조인 결과가 하나의 테이블 / JPQL쿼리 사용
